@@ -5,8 +5,10 @@ package carcomparison;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,39 +17,87 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import javafx.scene.input.KeyCode;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Stephen Yamonaco
  */
-public class CarPanel extends javax.swing.JPanel implements ItemListener{
+public class CarPanel extends javax.swing.JPanel implements ItemListener, KeyListener {
 
-    /**
-     * Creates new form CarPanel
-     */
+    private ArrayList<ImageIcon> currentImages;
+    private int index;
+
     public CarPanel() {
         initComponents();
- 
-		// koenigsegg stats on panel
-		ArrayList<Car> carList1 = CarList.listOfCars();
-		 Car car = carList1.get(0);
-		jComboBox1.setModel(new DefaultComboBoxModel(carList1.toArray()));
-                jComboBox1.addItemListener(this);
-		jList1.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 22));
-                changeObject(car);
+
+        // koenigsegg stats on panel
+        ArrayList<Car> carList1 = CarList.listOfCars();
+        Car car = carList1.get(0);
+        jComboBox1.setModel(new DefaultComboBoxModel(carList1.toArray()));
+        jComboBox1.addItemListener(this);
+        jList1.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 22));
+        changeObject(car);
+
+        //jLabel1.setIcon(new ImageIcon("C:\\Users\\Stephen Yamonaco\\Pictures\\Final Project\\Lamborghini\\Lamborghini1.jpg"));
     }
-    public void changeObject(Car car){
-    		
-		Collection<String> data1 = car.getAttributes().keySet();
-		DefaultListModel list1 = new DefaultListModel();
-		for (int i = 0; i < data1.size(); i++) {
-			list1.addElement(data1.toArray()[i] + ": " + car.getAtrribute((String) data1.toArray()[i]));
-		}
-		jList1.setModel(list1);
-                
+
+    public void changeObject(Car car) {
+        currentImages = car.getCarPics();
+        index = 0;
+        changeImage();
+        jPanel3.setBackground(car.getCarColorLight());
+        jList1.setBackground(car.getCarColorDark());
+        Collection<String> data1 = car.getAttributes().keySet();
+        DefaultListModel list1 = new DefaultListModel();
+        for (int i = 0; i < data1.size(); i++) {
+            list1.addElement(data1.toArray()[i] + ": " + car.getAtrribute((String) data1.toArray()[i]));
+        }
+        jList1.setModel(list1);
 
     }
-    
-        @Override
+
+    public void changeImage() {
+
+        if (jLabel1.getWidth() != 0 && jLabel1.getHeight() != 0) {
+
+            Image img = currentImages.get(index).getImage();
+            img = img.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+            jLabel1.setIcon(new ImageIcon(img));
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT) {
+            index--;
+            
+        } else if (key == KeyEvent.VK_RIGHT) {
+            index++;
+        }
+        System.out.println("boob");
+        index = (index + currentImages.size()) % currentImages.size();
+        changeImage();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
     public void itemStateChanged(ItemEvent e) {
         Car car = (Car) e.getItem();
         System.out.println(car.toString());
@@ -112,27 +162,27 @@ public class CarPanel extends javax.swing.JPanel implements ItemListener{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(15, 15, 15)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -150,6 +200,5 @@ public class CarPanel extends javax.swing.JPanel implements ItemListener{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
-
 
 }

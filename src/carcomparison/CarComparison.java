@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package carcomparison;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Stephen Yamonaco
@@ -67,8 +69,6 @@ public class CarComparison extends javax.swing.JFrame {
 //		jPanel4.setPreferredSize(new Dimension(1120, 800));
 //		jList3.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 112));
 
-	
-
     }
 
     /**
@@ -92,7 +92,8 @@ public class CarComparison extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(carPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(carPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(carPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +111,7 @@ public class CarComparison extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CarComparison().setVisible(true);
