@@ -39,12 +39,21 @@ public class CarPanel extends javax.swing.JPanel implements ItemListener, KeyLis
         // koenigsegg stats on panel
         ArrayList<Car> carList1 = CarList.listOfCars();
         Car car = carList1.get(0);
+        
         jComboBox1.setModel(new DefaultComboBoxModel(carList1.toArray()));
         jComboBox1.addItemListener(this);
         jList1.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 22));
         changeObject(car);
-
-        //jLabel1.setIcon(new ImageIcon("C:\\Users\\Stephen Yamonaco\\Pictures\\Final Project\\Lamborghini\\Lamborghini1.jpg"));
+        
+        jComboBox1.setFocusable(false);
+        jList1.setFocusable(false);
+        jPanel3.setFocusable(false);
+//        jLabel1.setFocusable(true);
+        jScrollPane3.setFocusable(false);
+        this.setFocusable(true);
+        jLabel1.requestFocus(true);
+        
+        this.addKeyListener(this);
     }
 
     public void changeObject(Car car) {
@@ -74,17 +83,7 @@ public class CarPanel extends javax.swing.JPanel implements ItemListener, KeyLis
 
     @Override
     public void keyTyped(KeyEvent e) {
-        int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_LEFT) {
-            index--;
-            
-        } else if (key == KeyEvent.VK_RIGHT) {
-            index++;
-        }
-        System.out.println("boob");
-        index = (index + currentImages.size()) % currentImages.size();
-        changeImage();
     }
 
     @Override
@@ -94,7 +93,18 @@ public class CarPanel extends javax.swing.JPanel implements ItemListener, KeyLis
 
     @Override
     public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
 
+        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
+            index--;
+
+        } else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+            index++;
+
+        }
+        index = (index + currentImages.size()) % currentImages.size();
+        changeImage();
+       
     }
 
     @Override
@@ -201,4 +211,9 @@ public class CarPanel extends javax.swing.JPanel implements ItemListener, KeyLis
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
+    private void setFocusable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }
